@@ -1,0 +1,17 @@
+.class-editor__link {
+    text-decoration: none;
+}
+
+.class-editor__card h3, h4, h5{
+    color: rgba(0,0,0,0.87);
+}
+.class-editor__card {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.class-editor__terms-container {
+    padding: 10px;
+    color: rgba(0,0,0,0.87);
+}
+

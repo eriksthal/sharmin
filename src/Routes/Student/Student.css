@@ -1,0 +1,53 @@
+.student__link {
+    text-decoration: none;
+}
+
+.student__card h3, h4, h5{
+    color: rgba(0,0,0,0.87);
+}
+.student__card {
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.student__terms-container {
+    padding: 10px;
+    color: rgba(0,0,0,0.87);
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
+
+.student__detail-container {
+    display: flex;
+    flex-direction: column;
+}
+.student__detail-heading {
+margin-bottom: 5px;
+}
+
+.student__detail-text {
+margin-top: 10px;
+}
+
+.student__info-container {
+    display: flex;
+    flex-direction: row;
+    padding: 25px;
+    flex-wrap: wrap;
+}
+
+.student__info-section {
+    width: 400px;
+}
+
+.student__info-subtitle {
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 5px;
+}

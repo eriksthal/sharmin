@@ -46,6 +46,10 @@ margin-top: 10px;
     width: 400px;
 }
 
+.student__info-section-large {
+    width: 100%;
+}
+
 .student__info-subtitle {
     font-weight: bold;
     font-size: 14px;

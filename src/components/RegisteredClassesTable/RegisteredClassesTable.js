@@ -37,11 +37,17 @@ function RegisteredClassesTable(props) {
           {props.registeredClasses.map(registeredClass => {
             return (
               <TableRow key={registeredClass.termId}>
-                <TableCell>{registeredClass.disciplineName}</TableCell>
+                <TableCell>{`${registeredClass.level.join(
+                  "/"
+                )} ${registeredClass.ages.join("/")} ${
+                  registeredClass.disciplineName
+                }`}</TableCell>
                 <TableCell align="right">
                   {registeredClass.classHours}
                 </TableCell>
-                <TableCell align="right">{registeredClass.termName}</TableCell>
+                <TableCell align="right">{`${registeredClass.termName} - ${
+                  registeredClass.termDescription
+                }`}</TableCell>
                 <TableCell align="right">{registeredClass.termPrice}</TableCell>
               </TableRow>
             );

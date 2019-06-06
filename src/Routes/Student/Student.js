@@ -5,6 +5,7 @@ import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Icon from "@material-ui/core/Icon";
+import RegisteredClassesTable from "../../components/RegisteredClassesTable/RegisteredClassesTable";
 
 import { getStudentEndpoint } from "../../constants/config.js";
 
@@ -52,6 +53,7 @@ class Student extends React.Component {
       agreementName: "",
       agreementNumber: "",
       agreementDate: "",
+      classes: [],
       isLoaded: true
     };
   }
@@ -92,6 +94,7 @@ class Student extends React.Component {
             agreementName: result.agreementName,
             agreementNumber: result.agreementNumber,
             agreementDate: result.agreementDate,
+            classes: result.classes,
             isLoaded: true
           });
         },
@@ -284,6 +287,10 @@ class Student extends React.Component {
                 {this.state.agreementDate}
               </p>
             </div>
+          </div>
+          <div className="student__info-section-large">
+            <h3 className="student__detail-heading">Registered Classes:</h3>
+            <RegisteredClassesTable registeredClasses={this.state.classes} />
           </div>
         </Paper>
         <div className={!this.state.agreementName ? "hide" : "show"}>

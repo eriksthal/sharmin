@@ -1,12 +1,9 @@
 import React from "react";
-import TextField from "@material-ui/core/TextField";
 import { withStyles } from "@material-ui/core/styles";
 import { studentsEndpoint } from "../../constants/config";
-import RegisteredClassesTable from "../RegisteredClassesTable/RegisteredClassesTable";
 import Spinner from "../Spinner/Spinner";
-import { Link } from "@reach/router";
-
-import Paper from "@material-ui/core/Paper";
+import MaterialTable from "material-table";
+import { navigate } from "@reach/router";
 
 import "./StudentLookup.css";
 
@@ -25,6 +22,9 @@ const styles = theme => ({
   },
   menu: {
     width: 200
+  },
+  table: {
+    minWidth: 650
   }
 });
 
@@ -34,8 +34,7 @@ class StudentLookup extends React.Component {
     this.state = {
       name: "",
       students: [],
-      loading: "loaded",
-      filteredStudents: []
+      loading: "loaded"
     };
   }
 
@@ -48,8 +47,7 @@ class StudentLookup extends React.Component {
           if (result.length > 0) {
             this.setState({
               students: result,
-              loading: "loaded",
-              filteredStudents: result
+              loading: "loaded"
             });
           } else {
             this.setState({ students: [], loading: "no-results" });
@@ -64,117 +62,13 @@ class StudentLookup extends React.Component {
       );
   }
 
-  handleNameChange(event) {
-    this.setState(
-      { name: event.target.value },
-      this.debounce(this.handleSearchStudent, 500)
-    );
+  goToStudent(event, row) {
+    navigate(`/student/${row.studentId}`);
   }
-
-  renderStudent(student) {
-    if (student) {
-      return (
-        <div key={student.studentId} style={{ display: "flex" }}>
-          <Link
-            to={`/student/${student.studentId}`}
-            className="class-editor__link"
-          >
-            <Paper className="student-lookup__student-info">
-              <div>First Name: {student.firstName}</div>
-              <div>Last Name: {student.lastName}</div>
-              <div>Primary Email: {student.primaryEmail}</div>
-              <div>Student Email: {student.studentEmail}</div>
-            </Paper>
-          </Link>
-          {/* {this.renderRegisteredClasses(student)} */}
-        </div>
-      );
-    }
-  }
-
-  renderRegisteredClasses(student) {
-    if (student.classes) {
-      return <RegisteredClassesTable registeredClasses={student.classes} />;
-    }
-  }
-
-  debounce(func, wait, immediate) {
-    var timeout;
-    return function() {
-      var context = this,
-        args = arguments;
-      var later = function() {
-        timeout = null;
-        if (!immediate) func.apply(context, args);
-      };
-      var callNow = immediate && !timeout;
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-      if (callNow) func.apply(context, args);
-    };
-  }
-
-  handleSearchStudent() {
-    this.setState({ loading: "loading" });
-    const filteredStudents = this.state.students.filter(student => {
-      const criteria = `${student.studentId} ${student.firstName} ${
-        student.lastName
-      }`.toLowerCase();
-      return criteria.includes(this.state.name.toLowerCase());
-    });
-    if (filteredStudents.length > 0) {
-      this.setState({ filteredStudents, loading: "loaded" });
-    } else {
-      this.setState({ filteredStudents, loading: "no-results" });
-    }
-  }
-
-  // handleSearchStudent() {
-  //   this.setState({ loading: "loading" });
-  // fetch(
-  //   getStudentEndpoint +
-  //     `?id=${this.state.name}&queryType=${this.state.queryType}`
-  // )
-  //   .then(res => res.json())
-  //   .then(
-  //     result => {
-  //       if (result.length > 0) {
-  //         this.setState({
-  //           students: result,
-  //           loading: "loaded",
-  //           filteredStudents: result
-  //         });
-  //       } else {
-  //         this.setState({ students: [], loading: "no-results" });
-  //       }
-  //     },
-  //     // Note: it's important to handle errors here
-  //     // instead of a catch() block so that we don't swallow
-  //     // exceptions from actual bugs in components.
-  //     error => {
-  //       this.setState({ students: [], loading: "loaded" });
-  //     }
-  //   );
-  // }
 
   render() {
-    const { classes } = this.props;
     return (
       <div className="student-lookup__container">
-        <div>
-          <h2>Search for a student</h2>
-        </div>
-        <div className="student-lookup__search-container">
-          <TextField
-            id="standard-name"
-            label="Name or ID"
-            className={classes.textField}
-            value={this.state.name}
-            onChange={this.handleNameChange.bind(this)}
-            margin="normal"
-          />
-        </div>
-
         <div
           className={
             this.state.loading === "loading"
@@ -200,9 +94,34 @@ class StudentLookup extends React.Component {
               : "student-lookup__search-results"
           }
         >
-          {this.state.filteredStudents.map(student => {
-            return this.renderStudent(student);
-          })}
+          <MaterialTable
+            style={{ width: "100%" }}
+            columns={[
+              { title: "First Name", field: "firstName" },
+              { title: "Last name", field: "lastName" },
+              { title: "Email", field: "primaryEmail" },
+              { title: "Registration Date", field: "registrationDate" },
+              {
+                title: "Registered",
+                field: "active",
+                lookup: { 0: "Pending", 1: "Registered" }
+              }
+            ]}
+            data={this.state.students}
+            options={{
+              filtering: true,
+              actionsColumnIndex: -1,
+              pageSize: 20
+            }}
+            actions={[
+              {
+                icon: "edit",
+                tooltip: "Edit User",
+                onClick: this.goToStudent.bind(this)
+              }
+            ]}
+            title="Registrations"
+          />
         </div>
       </div>
     );

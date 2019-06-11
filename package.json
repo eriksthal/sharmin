@@ -8,6 +8,7 @@
     "@material-ui/icons": "^3.0.1",
     "@reach/router": "^1.2.1",
     "date-fns": "2.0.0-alpha.27",
+    "material-table": "^1.39.0",
     "material-ui-pickers": "^2.2.4",
     "mson": "^1.2.0",
     "mson-react": "^1.2.0",

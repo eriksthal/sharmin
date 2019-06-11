@@ -36,7 +36,7 @@ function RegisteredClassesTable(props) {
         <TableBody>
           {props.registeredClasses.map(registeredClass => {
             return (
-              <TableRow key={registeredClass.termId}>
+              <TableRow key={registeredClass.subscriptionId}>
                 <TableCell>{`${registeredClass.level.join(
                   "/"
                 )} ${registeredClass.ages.join("/")} ${
@@ -48,7 +48,9 @@ function RegisteredClassesTable(props) {
                 <TableCell align="right">{`${registeredClass.termName} - ${
                   registeredClass.termDescription
                 }`}</TableCell>
-                <TableCell align="right">{registeredClass.termPrice}</TableCell>
+                <TableCell align="right">
+                  ${registeredClass.termPrice} CAD
+                </TableCell>
               </TableRow>
             );
           })}

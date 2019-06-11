@@ -71,40 +71,42 @@ class Student extends React.Component {
       .then(res => res.json())
       .then(
         result => {
-          result = result.pop();
-          this.setState({
-            studentId: result.studentId,
-            firstName: result.firstName,
-            lastName: result.lastName,
-            birthdate: result.birthdate,
-            street: result.street,
-            city: result.city,
-            postalCode: result.postalCode,
-            primaryEmail: result.primaryEmail,
-            secondaryEmail: result.secondaryEmail,
-            studentEmail: result.studentEmail,
-            cellNumber: result.cellNumber,
-            homeNumber: result.homeNumber,
-            academicSchool: result.academicSchool,
-            momName: result.momName,
-            momNumber: result.momNumber,
-            dadName: result.dadName,
-            dadNumber: result.dadNumber,
-            careCard: result.careCard,
-            medicalConditions: result.medicalConditions,
-            familyDoctorName: result.familyDoctorName,
-            familyDoctorNumber: result.familyDoctorNumber,
-            waiverStudentName: result.waiverStudentName,
-            waiverGuardianName: result.waiverGuardianName,
-            agreementName: result.agreementName,
-            agreementNumber: result.agreementNumber,
-            agreementDate: result.agreementDate,
-            agreementTerm: result.agreementTerm,
-            classes: result.classes,
-            active: result.active,
-            registrationDate: result.registrationDate,
-            isLoaded: true
-          });
+          if (result.length > 0) {
+            result = result.pop();
+            this.setState({
+              studentId: result.studentId,
+              firstName: result.firstName,
+              lastName: result.lastName,
+              birthdate: result.birthdate,
+              street: result.street,
+              city: result.city,
+              postalCode: result.postalCode,
+              primaryEmail: result.primaryEmail,
+              secondaryEmail: result.secondaryEmail,
+              studentEmail: result.studentEmail,
+              cellNumber: result.cellNumber,
+              homeNumber: result.homeNumber,
+              academicSchool: result.academicSchool,
+              momName: result.momName,
+              momNumber: result.momNumber,
+              dadName: result.dadName,
+              dadNumber: result.dadNumber,
+              careCard: result.careCard,
+              medicalConditions: result.medicalConditions,
+              familyDoctorName: result.familyDoctorName,
+              familyDoctorNumber: result.familyDoctorNumber,
+              waiverStudentName: result.waiverStudentName,
+              waiverGuardianName: result.waiverGuardianName,
+              agreementName: result.agreementName,
+              agreementNumber: result.agreementNumber,
+              agreementDate: result.agreementDate,
+              agreementTerm: result.agreementTerm,
+              classes: result.classes,
+              active: result.active,
+              registrationDate: result.registrationDate,
+              isLoaded: true
+            });
+          }
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow

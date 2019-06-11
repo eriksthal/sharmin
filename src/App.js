@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Router, Link } from "@reach/router";
-import Home from "./Routes/Home/Home";
+import { Redirect, Router, Link } from "@reach/router";
 import BackOffice from "./Routes/BackOffice/BackOffice.js";
 import StudentLookup from "./components/StudentLookup/StudentLookup.js";
 import Student from "./Routes/Student/Student.js";
@@ -40,7 +39,7 @@ function App(props) {
         </nav>
         <div className="content">
           <Router>
-            <Home path="/" />
+            <Redirect from="/" to="/admin" />
             <BackOffice path="admin" />
             <StudentLookup path="students" />
             <Student path="student/:studentId" />

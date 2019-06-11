@@ -34,11 +34,16 @@ class StudentLookup extends React.Component {
     this.state = {
       name: "",
       students: [],
-      loading: "loaded"
+      loading: "loaded",
+      saved: localStorage.getItem("key") || ""
     };
   }
 
   componentDidMount() {
+    if (this.state.saved.length === 0) {
+      document.location = `/admin`;
+    }
+
     this.setState({ loading: "loading" });
     fetch(studentsEndpoint)
       .then(res => res.json())
@@ -68,7 +73,13 @@ class StudentLookup extends React.Component {
 
   render() {
     return (
-      <div className="student-lookup__container">
+      <div
+        className={
+          this.state.saved.length !== 0
+            ? "student-lookup__container"
+            : "student-lookup__hide"
+        }
+      >
         <div
           className={
             this.state.loading === "loading"
@@ -110,7 +121,6 @@ class StudentLookup extends React.Component {
             data={this.state.students}
             options={{
               filtering: true,
-              actionsColumnIndex: -1,
               pageSize: 20
             }}
             actions={[

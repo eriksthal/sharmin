@@ -28,6 +28,7 @@ function RegisteredClassesTable(props) {
         <TableHead>
           <TableRow>
             <TableCell>Class Name</TableCell>
+            <TableCell align="right">Location</TableCell>
             <TableCell align="right">Hours</TableCell>
             <TableCell align="right">Term</TableCell>
             <TableCell align="right">Price</TableCell>
@@ -42,6 +43,9 @@ function RegisteredClassesTable(props) {
                 )} ${registeredClass.ages.join("/")} ${
                   registeredClass.disciplineName
                 }`}</TableCell>
+                <TableCell align="right">
+                  {registeredClass.locationName}
+                </TableCell>
                 <TableCell align="right">
                   {registeredClass.classHours}
                 </TableCell>

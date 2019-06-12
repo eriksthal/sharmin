@@ -33,8 +33,12 @@ function App(props) {
       <div>
         <nav>
           <NavigationBar logo="logo">
-            <Link to="classes">Classes</Link>
-            <Link to="students">Students</Link>
+            <Link to="classes" id="classes">
+              Classes
+            </Link>
+            <Link to="students" id="students">
+              Students
+            </Link>
           </NavigationBar>
         </nav>
         <div className="content">

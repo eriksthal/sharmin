@@ -40,7 +40,7 @@ class NavigationBar extends React.Component {
             return (
               <div
                 onClick={this.toggleMenu}
-                key={child.props.href}
+                key={child.props.id}
                 className="navbar-menu-link"
               >
                 {child}

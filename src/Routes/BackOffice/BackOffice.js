@@ -36,6 +36,7 @@ class BackOffice extends React.Component {
             value={this.state.password}
             onChange={this.handlePasswordChange.bind(this)}
             margin="normal"
+            type="password"
           />
           <Button
             variant="contained"

@@ -57,12 +57,17 @@ class Student extends React.Component {
       registrationDate: "",
       active: false,
       classes: [],
-      isLoaded: true
+      isLoaded: true,
+      saved: localStorage.getItem("key") || ""
     };
     this.goBack = this.goBack.bind(this);
   }
 
   componentDidMount() {
+    console.log(this.state.saved);
+    if (this.state.saved.length === 0) {
+      window.location = "/admin";
+    }
     this.setState({ isLoaded: false });
     fetch(`${getStudentEndpoint}?queryType=id&id=${this.props.studentId}`, {
       method: "GET",
@@ -205,7 +210,7 @@ class Student extends React.Component {
 
   render() {
     return (
-      <>
+      <div className={this.state.saved.length !== 0 ? "" : "student__hide"}>
         <div
           className={
             this.state.isLoaded === false
@@ -424,7 +429,7 @@ class Student extends React.Component {
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   }
 }

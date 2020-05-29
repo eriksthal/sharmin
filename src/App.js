@@ -36,19 +36,36 @@ function App(props) {
             <Link to="classes" id="classes">
               Classes
             </Link>
-            <Link to="students" id="students">
-              Students
+            <Link to="camps" id="camps">
+              Camps
+            </Link>
+            <Link to="recreationalRegistrations" id="recreationalRegistrations">
+              Recreational Registrations
+            </Link>
+            <Link to="campRegistrations" id="campRegistrations">
+              Camp Registrations
             </Link>
           </NavigationBar>
         </nav>
         <div className="content">
           <Router>
-            <Redirect from="/" to="/admin" />
+            <Redirect from="/" to="/recreationalRegistrations" />
             <BackOffice path="admin" />
-            <StudentLookup path="students" />
+            <StudentLookup
+              key="rec-students"
+              path="recreationalRegistrations"
+              title="Recreational"
+            />
             <Student path="student/:studentId" />
-            <ClassEditor path="classes" />
+            <ClassEditor path="classes" key="classes" type="recreational" />
+            <ClassEditor path="camps" key="camps" type="camp" />
             <Classes path="class/:classId" />
+            <StudentLookup
+              key="camp-students"
+              type="Camp"
+              path="campRegistrations"
+              title="Camps"
+            />
           </Router>
         </div>
       </div>

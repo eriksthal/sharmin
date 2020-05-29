@@ -1,6 +1,6 @@
 const endpointBasePath =
   "https://k8tbb61nv6.execute-api.us-east-2.amazonaws.com/dev";
-export const classesEndpoint = `${endpointBasePath}/classes`;
+export const classesEndpoint = `${endpointBasePath}/classes?status=all`;
 export const agesEndpoint = `${endpointBasePath}/ages`;
 export const levelsEndpoint = `${endpointBasePath}/levels`;
 export const disciplinesEndpoint = `${endpointBasePath}/disciplines`;
@@ -11,3 +11,5 @@ export const getStudentEndpoint = `${endpointBasePath}/student`;
 export const classByIdEndpoint = `${endpointBasePath}/class`;
 export const addTermEndpoint = `${endpointBasePath}/term`;
 export const studentsEndpoint = `${endpointBasePath}/students`;
+export const campStudentsEndpoint = `${endpointBasePath}/campStudents`;
+export const campsEndpoint = `${endpointBasePath}/camps`;

@@ -1,6 +1,5 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { navigate } from "@reach/router";
 import Paper from "@material-ui/core/Paper";
 import Button from "@material-ui/core/Button";
 import Spinner from "../../components/Spinner/Spinner";
@@ -12,17 +11,17 @@ import { getStudentEndpoint } from "../../constants/config.js";
 
 import "./Student.css";
 
-const styles = theme => ({
+const styles = (theme) => ({
   root: {
-    width: "100%"
+    width: "100%",
   },
   backButton: {
-    marginRight: theme.spacing.unit
+    marginRight: theme.spacing.unit,
   },
   instructions: {
     marginTop: theme.spacing.unit,
-    marginBottom: theme.spacing.unit
-  }
+    marginBottom: theme.spacing.unit,
+  },
 });
 
 class Student extends React.Component {
@@ -58,7 +57,8 @@ class Student extends React.Component {
       active: false,
       classes: [],
       isLoaded: true,
-      saved: localStorage.getItem("key") || ""
+      useCreditOnFile: "",
+      saved: localStorage.getItem("key") || "",
     };
     this.goBack = this.goBack.bind(this);
   }
@@ -71,11 +71,11 @@ class Student extends React.Component {
     this.setState({ isLoaded: false });
     fetch(`${getStudentEndpoint}?queryType=id&id=${this.props.studentId}`, {
       method: "GET",
-      headers: { "x-api-key": localStorage.getItem("key") }
+      headers: { "x-api-key": localStorage.getItem("key") },
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
-        result => {
+        (result) => {
           if (result.length > 0) {
             result = result.pop();
             this.setState({
@@ -109,24 +109,25 @@ class Student extends React.Component {
               classes: result.classes,
               active: result.active,
               registrationDate: result.registrationDate,
-              isLoaded: true
+              isLoaded: true,
+              useCreditOnFile: result.useCreditOnFile,
             });
           }
         },
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
-        error => {
+        (error) => {
           this.setState({
             isLoaded: true,
-            error
+            error,
           });
         }
       );
   }
 
   goBack() {
-    navigate("/students");
+    window.history.back();
   }
 
   formatDate(unformattedDate) {
@@ -150,20 +151,20 @@ class Student extends React.Component {
       method: "PUT",
       headers: {
         Accept: "application/json",
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(payload)
+      body: JSON.stringify(payload),
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
-        result => {
+        (result) => {
           if (result.status === 200) {
             switch (payload.action) {
               case "wipe":
                 this.setState({
                   agreementName: "",
                   agreementDate: "",
-                  agreementNumber: ""
+                  agreementNumber: "",
                 });
                 break;
               case "activate":
@@ -181,7 +182,7 @@ class Student extends React.Component {
         // Note: it's important to handle errors here
         // instead of a catch() block so that we don't swallow
         // exceptions from actual bugs in components.
-        error => {
+        (error) => {
           this.setState({ isLoaded: true });
         }
       );
@@ -204,7 +205,7 @@ class Student extends React.Component {
   handleActivateUser(event) {
     this.updateUser({
       id: this.state.studentId,
-      action: event.currentTarget.id
+      action: event.currentTarget.id,
     });
   }
 
@@ -242,9 +243,7 @@ class Student extends React.Component {
               <div className="student__detail-container">
                 <h3 className="student__detail-heading">Address:</h3>
                 <p className="student__detail-text">
-                  {`${this.state.street}, ${this.state.city}, ${
-                    this.state.postalCode
-                  }`}
+                  {`${this.state.street}, ${this.state.city}, ${this.state.postalCode}`}
                 </p>
               </div>
               <div className="student__detail-container">
@@ -370,6 +369,12 @@ class Student extends React.Component {
                 <p className="student__detail-text">
                   <span className="student__info-subtitle">Agreement Term</span>
                   {this.state.agreementTerm}
+                </p>
+                <p className="student__detail-text">
+                  <span className="student__info-subtitle">
+                    Use credit on file
+                  </span>
+                  {this.state.useCreditOnFile ? "Yes" : "No"}
                 </p>
               </div>
               <div className="student__detail-container">

@@ -15,3 +15,10 @@
     color: rgba(0,0,0,0.87);
 }
 
+.class-editor__active {
+    color: green;
+}
+
+.class-editor__inactive {
+    color: red;
+}

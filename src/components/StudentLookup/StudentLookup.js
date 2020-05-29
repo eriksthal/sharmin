@@ -1,6 +1,6 @@
 import React from "react";
 import { withStyles } from "@material-ui/core/styles";
-import { studentsEndpoint } from "../../constants/config";
+import { studentsEndpoint, campStudentsEndpoint } from "../../constants/config";
 import Spinner from "../Spinner/Spinner";
 import MaterialTable from "material-table";
 import { navigate } from "@reach/router";
@@ -39,13 +39,19 @@ class StudentLookup extends React.Component {
     };
   }
 
+  componentWillUnmount() {
+    this.setState({ students: [] });
+  }
   componentDidMount() {
+    const endpoint =
+      this.props.type === "Camp" ? campStudentsEndpoint : studentsEndpoint;
+    console.log(endpoint);
     if (this.state.saved.length === 0) {
       document.location = `/admin`;
     }
 
     this.setState({ loading: "loading" });
-    fetch(studentsEndpoint)
+    fetch(endpoint)
       .then(res => res.json())
       .then(
         result => {
@@ -91,15 +97,6 @@ class StudentLookup extends React.Component {
         </div>
         <div
           className={
-            this.state.loading === "no-results"
-              ? "student-lookup__no-results"
-              : "student-lookup__hide"
-          }
-        >
-          No search results. Please try a different search criteria.
-        </div>
-        <div
-          className={
             this.state.loading === "loading"
               ? "student-lookup__search-results student-lookup__hide"
               : "student-lookup__search-results"
@@ -130,7 +127,7 @@ class StudentLookup extends React.Component {
                 onClick: this.goToStudent.bind(this)
               }
             ]}
-            title="Registrations"
+            title={this.props.title}
           />
         </div>
       </div>
